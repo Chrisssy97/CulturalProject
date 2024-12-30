@@ -38,10 +38,6 @@ def generate_lesson(topic, culture, strategy):
     # For few-shot with culture knowledge prompting strategy, give it the general definition of cultural knowledge (i.e. culture_knowledge_base)
     # Plus individual cutural knowledge for eac culture
     elif strategy == "few-shot with culture knowledge":
-        cultural_knowledge = {
-            "Chinese": "With knowledge of Chinese culture, like Lunar New Year, dragons, and traditional foods like dumplings...",
-            "African American": "With knowledge of African American culture, including music, history, and community traditions..."
-        }
         full_prompt = f"{culture_knowledge_base}{cultural_knowledge[culture]} {prompt}"
 
     # Actually send the promot to chatgpt and get response back
