@@ -2,6 +2,8 @@ import re
 import openai
 import pandas as pd
 
+from constants import *
+
 # Set the OpenAI API key
 # paste your API key here
 API_KEY = "" 
