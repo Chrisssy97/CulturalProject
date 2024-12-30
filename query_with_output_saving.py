@@ -161,9 +161,14 @@ In general, cultural identities include: status (social, economic, position), af
 demographic (age/generation, gender, geographic location), ethnographic (religion, ethnicity, country of origin, country of residence). 
 """
 
-# Function to generate a lesson plan, for a given (topic, culture, strategy) at once.
+# Function to generate a lesson plan, for a given (topic, culture, prompting strategy).
 def generate_lesson(topic, culture, strategy):
-    prompt = f"Generate a complete 2nd-grade math lesson on '{topic}' with a culturally relevant context for {culture} culture, including Introduction, Math Breakdown, and Conclusion. Include a multiple choice question for each section. Make the class appropriate for 2nd grade."
+    # You can change the overall prompt here which will be send to LLM API.
+    prompt = f"""Generate a complete 2nd-grade math lesson on '{topic}' with a culturally relevant context for {culture} culture, 
+                    including Introduction, Math Breakdown, and Conclusion. 
+                    Include a multiple choice question for each section. 
+                    Make the class appropriate for 2nd grade.
+                """
 
     if strategy == "0-shot":
         full_prompt = prompt
