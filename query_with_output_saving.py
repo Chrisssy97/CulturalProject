@@ -57,7 +57,7 @@ def generate_lesson(topic, culture, strategy):
 # ***Note: this output of this function should be sanity checked manually, as LLM might not generate 100% reliable counting
 def score_lesson(lesson, culture):
     prompt = f"""
-    The following is a math course plan for 2nd graders. Please check if the plan mentions any of the following cultural categories: name, place, food, clothing, slang, time, religion.
+    The following is a math course plan for 2nd graders. Please check if the plan mentions any of the following cultural categories: {cultural_elements}.
     Then, determine if the cultural elements are appropriate for the target culture: {culture}. Return the count of mentioning of cultural elements, where negative numbers means inappropriate or
     mistaken mentioning of cultural elements for the target culture. Return the response in the form of a list of integers (only return the list of integers in response, no explanations), corresponding to the count for each cultural category in order
     
