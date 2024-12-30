@@ -42,7 +42,7 @@ def generate_lesson(topic, culture, strategy):
 
     # Actually send the promot to chatgpt and get response back
     response = openai.ChatCompletion.create(
-        model="gpt-4", 
+        model=MODEL, 
         messages=[{"role": "user", "content": full_prompt}],
         max_tokens=1000
     )
