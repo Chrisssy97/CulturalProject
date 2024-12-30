@@ -49,31 +49,6 @@ def generate_lesson(topic, culture, strategy):
     
     return response['choices'][0]['message']['content'].strip()
 
-# Function to score the lesson based on cultural appropriateness
-# ***Note: this output of this function should be sanity checked manually, as LLM might not generate 100% reliable counting
-def score_lesson(lesson, culture):
-    prompt = f"""
-    The following is a math course plan for 2nd graders. Please check if the plan mentions any of the following cultural categories: {cultural_elements}.
-    Then, determine if the cultural elements are appropriate for the target culture: {culture}. Return the count of mentioning of cultural elements, where negative numbers means inappropriate or
-    mistaken mentioning of cultural elements for the target culture. Return the response in the form of a list of integers (only return the list of integers in response, no explanations), corresponding to the count for each cultural category in order
-    
-    Course Plan: {lesson}
-    """
-    
-    response = openai.ChatCompletion.create(
-        model="gpt-4",
-        messages=[{"role": "user", "content": prompt}],
-        max_tokens=150
-    )
-    
-    # Capture the score output from the model's response
-    scores = response['choices'][0]['message']['content'].strip().split('\n')[0][1:-1].split(",")
-    scores = [int(s) for s in scores]
-    score_element = zip(cultural_elements, scores)
-    score_dict = {elem: s for (elem, s) in score_element}  # Initialize scores for all cultural elements
-    total_score = sum(score_dict.values())
-    return score_dict, total_score
-
 
 # Function to save all lessons to a single text file
 def save_all_lessons_to_file(index, lesson, culture, strategy, filename="all_lessons.csv"):
@@ -83,23 +58,16 @@ def save_all_lessons_to_file(index, lesson, culture, strategy, filename="all_les
         f.write("\n" + "="*50 + "\n")  # Separate lessons with a line of "=" for clarity
 
 
-# Function to save the scores (i.e. counting of appearance of cultural elements) to a CSV file
-def save_scores_to_csv(scores, filename="lesson_scores.csv"):
-    df = pd.DataFrame(scores)
-    df.to_csv(filename, index=False)
-
-
 # Main workflow
 def main():
     lessons = []
-    scores = []
     # File to save all lessons
     lesson_filename = "all_lessons.txt"
     
     # Clear the file before writing new lessons (optional)
     open(lesson_filename, 'w').close()
     
-    # Generate lessons and score them
+    # Generate lessons 
     index = 1
     for culture in cultures:
         for topic in math_topics:
@@ -110,24 +78,8 @@ def main():
                 # Save the lesson to the single file with index
                 save_all_lessons_to_file(index, full_lesson, culture, strategy, lesson_filename)
                 
-                # Score the lesson
-                score_dict, total_score = score_lesson(full_lesson, culture)
-                
-                # Collect score data (i.e. counting of cultural elements)
-                score_row = {
-                    "Lesson_Index": index,
-                    "Culture": culture,
-                    "Strategy": strategy,
-                    **score_dict,
-                    "Total_Score": total_score
-                }
-                scores.append(score_row)
-                
                 # Increment lesson index
                 index += 1
-    
-    # Save all scores to a CSV file
-    save_scores_to_csv(scores)
 
 
 # Run the main fnuction
