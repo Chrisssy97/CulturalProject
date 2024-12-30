@@ -1,22 +1,22 @@
 # CulturalProject
 
-# Below are instructions to using the file.
+## Below are instructions to using the file.
 
-## To run the script to generate lesson plans
+### To run the script to generate lesson plans
 1. Open a command line terminal
 2. cd into this CulturalProject directory
 3. Install necessary packages: pip3 install -r requirements.txt
 4. run script: python3 query_with_output_saving.py
 
-## To change parameters for the script, udpate them in constants.py
+### To change parameters for the script, udpate them in constants.py
 
-## Models
+### Models
 We evaluate the following LLMs: 
 (a) GPT4 queried via API between Oct 1 and <end date> 2024.
 
 We generate a maximum of 1000 tokens for each individual lesson plan generation.
 
-## Prompting
+### Prompting
 For a given culture and topic, we ask GPT to generate a complete 2nd-grade math lesson on the topic with a culturally relevant context for the given culture, including three sections: introduction, math breakdown, and conclusion. A multiple choice question is included for each section. 
 
 
