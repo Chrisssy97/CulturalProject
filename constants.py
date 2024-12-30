@@ -145,7 +145,7 @@ D) 200 miles
 
 """
 
-# Define cultural knowledge base here
+# Define cultural knowledge base here: i.e. the meaning of cultural knowledge
 # This will be given to the LLM for few-shot prompting strategies.
 # For example, you can replace this with RAG
 culture_knowledge_base = """
@@ -154,3 +154,31 @@ Culture teaches us how to act, what's ok and what's not ok, what to value, what 
 In general, cultural identities include: status (social, economic, position), affliations (family, work, organizations),
 demographic (age/generation, gender, geographic location), ethnographic (religion, ethnicity, country of origin, country of residence). 
 """
+
+# Define cultural knowledge for individual culture here
+cultural_knowledge = {
+    "Chinese": ["Dumplings are a traditional food during Lunar New Year."],
+    "African American": ["Jazz and hip-hop are central to African American culture."],
+    "Hispanic": [
+        "Tacos and tamales are traditional Mexican dishes, often enjoyed during celebrations like Día de los Muertos.",
+        "Flan is a popular dessert in many Hispanic countries, symbolizing the shared cultural love for sweet treats.",
+        "Mariachi music is an iconic symbol of Mexican culture, often performed during festivals and family gatherings.",
+        "Salsa dancing originated in the Caribbean but is widely celebrated in Hispanic culture as a joyful, communal activity.",
+        "Día de los Muertos (Day of the Dead) is a Mexican holiday that celebrates loved ones who have passed away, with vibrant altars and offerings.",
+        "The Mayan pyramids, such as Chichén Itzá, reflect the rich history of ancient civilizations in Mexico."
+    ],
+    "Caribbean": [
+        "Reggae music, popularized by artists like Bob Marley, is a hallmark of Caribbean culture, particularly in Jamaica.",
+        "Carnival is celebrated across the Caribbean with colorful parades, calypso music, and traditional costumes.",
+        "Ackee and saltfish is Jamaica's national dish, showcasing the unique flavors of Caribbean cuisine.",
+        "The steel drum, or steelpan, is an instrument invented in Trinidad and Tobago and is central to many Caribbean music styles.",
+        "The Caribbean Sea is home to rich biodiversity, including coral reefs and tropical fish, making it a vital part of local culture."
+    ],
+    "Hindu": [
+        "Diwali, the festival of lights, is one of the most important Hindu celebrations, symbolizing the victory of light over darkness.",
+        "The Bhagavad Gita is a sacred Hindu scripture that offers spiritual guidance and philosophy.",
+        "Yoga, a spiritual and physical practice, has its origins in Hindu traditions and emphasizes balance and mindfulness.",
+        "Traditional Indian cuisine, such as samosas and curries, is often prepared during Hindu festivals and celebrations.",
+        "The Ganges River is considered sacred in Hinduism and is a central part of many religious rituals and traditions."
+    ]
+}
