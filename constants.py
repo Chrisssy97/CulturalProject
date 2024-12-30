@@ -149,7 +149,7 @@ D) 200 miles
 """
 
 # Define cultural knowledge base here: i.e. the meaning of cultural knowledge
-# This will be given to the LLM for few-shot prompting strategies.
+# This will be given to the LLM for few-shot with cultural knowledge base prompting strategies.
 # For example, you can replace this with RAG
 culture_knowledge_base = """
 Culture is a set of learned expectations which allow us to intepret and value behavior. 
