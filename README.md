@@ -8,8 +8,6 @@ To run the script to generate lesson plans
 3. Install necessary packages: pip3 install -r requirements.txt
 4. run script: python3 query_with_output_saving.py
 
-To score lessons generated:
-python3 score_lesson.py
 
 Background
 
