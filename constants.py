@@ -2,6 +2,7 @@
 API_KEY = "" 
 
 # Chatgpt model version
+# You can change this to test multiple gpt versions
 MODEL = "gpt-4"
 
 # Define the 2nd-grade math topics here
