@@ -3,10 +3,11 @@ import openai
 import pandas as pd
 
 # Set the OpenAI API key
-API_KEY = "" # paste your API key here
+# paste your API key here
+API_KEY = "" 
 openai.api_key = API_KEY
 
-# Define the 2nd-grade math topics
+# Define the 2nd-grade math topics here
 math_topics = [
     "Count to 100 by ones and by tens",
     "Count forward beginning from a given number within the known sequence",
@@ -15,16 +16,17 @@ math_topics = [
     "Compare two numbers between 1 and 10 presented as written numerals"
 ]
 
-# Define the cultural elements
+# Define the cultural elements used in counting here
 cultural_elements = ["name", "place", "food", "clothing", "slang", "time", "religion"]
 
-# Define the cultures to test
+# Define the cultures for which you want to generate classes here
 cultures = ["Chinese", "African American", "Hispanic", "Caribbean", "Hindu"]
 
-# Define the different prompting strategies
+# Define the different prompting strategies you want to use here
 prompting_strategies = ["0-shot", "few-shot with example", "few-shot with culture knowledge"]
 
-# Example lesson to use in few-shot prompting
+# Example lesson to use in few-shot with example prompting strategy. 
+# These will be given to the LLM as examples to follow for generating outputs
 example_lesson_1 = """
 Culture-Based Math Lesson 
 Target Grade Level: 2nd Grade
@@ -149,6 +151,9 @@ D) 200 miles
 
 """
 
+# Define cultural knowledge base here
+# This will be given to the LLM for few-shot with culture knowledge prompting strategy.
+# For example, you can replace this with RAG
 culture_knowledge_base = """
 Culture is a set of learned expectations which allow us to intepret and value behavior. 
 Culture teaches us how to act, what's ok and what's not ok, what to value, what not to value, and what to share with others.
@@ -156,7 +161,7 @@ In general, cultural identities include: status (social, economic, position), af
 demographic (age/generation, gender, geographic location), ethnographic (religion, ethnicity, country of origin, country of residence). 
 """
 
-# Function to generate the entire lesson at once
+# Function to generate a lesson plan, for a given (topic, culture, strategy) at once.
 def generate_lesson(topic, culture, strategy):
     prompt = f"Generate a complete 2nd-grade math lesson on '{topic}' with a culturally relevant context for {culture} culture, including Introduction, Math Breakdown, and Conclusion. Include a multiple choice question for each section. Make the class appropriate for 2nd grade."
 
@@ -186,7 +191,6 @@ def generate_lesson(topic, culture, strategy):
     return response['choices'][0]['message']['content'].strip()
 
 # Function to score the lesson based on cultural appropriateness
-# todo: write an independent function which scores a text file of all lesson plans
 def score_lesson(lesson, culture):
     prompt = f"""
     The following is a math course plan for 2nd graders. Please check if the plan mentions any of the following cultural categories: name, place, food, clothing, slang, time, religion.
@@ -266,7 +270,9 @@ def main(run_index):
     save_scores_to_csv(run_index, scores)
 
 
-# Run the main fnuction: you can run the entire script multiple times if you want to look at outputs across runs
+# Run the main fnuction
+# Currently, the function is only run 1 time, so you will only get 1 output txt file
+# you can run the entire script multiple times by changing the "i" in range(i) if you want to look at outputs across runs.
 if __name__ == "__main__":
     for i in range(1):
         main(i)
