@@ -24,10 +24,10 @@ def generate_lesson(topic, culture, strategy):
     if strategy == "0-shot":
         full_prompt = prompt
         
-    # For few-shot with example, we attach the culture_knowledge_base + example course plans for the LLM to follow. 
+    # For few-shot with example, we attach the example course plans for the LLM to follow. 
     # You can edit the examples / instructions for how the LLM should follow the example below.
     elif strategy == "few-shot with example":
-        full_prompt = f"""{culture_knowledge_base}
+        full_prompt = f"""
         Using the example lessons below, {prompt}\n
         example 1: {example_lesson_1}. 
         example 2: {example_lesson_2}. 
