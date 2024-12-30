@@ -1,6 +1,9 @@
 # paste your API key here
 API_KEY = "" 
 
+# Chatgpt model version
+MODEL = "gpt-4"
+
 # Define the 2nd-grade math topics here
 math_topics = [
     "Count to 100 by ones and by tens",
