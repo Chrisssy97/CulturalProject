@@ -152,7 +152,7 @@ D) 200 miles
 """
 
 # Define cultural knowledge base here
-# This will be given to the LLM for few-shot with culture knowledge prompting strategy.
+# This will be given to the LLM for few-shot prompting strategies.
 # For example, you can replace this with RAG
 culture_knowledge_base = """
 Culture is a set of learned expectations which allow us to intepret and value behavior. 
@@ -161,7 +161,7 @@ In general, cultural identities include: status (social, economic, position), af
 demographic (age/generation, gender, geographic location), ethnographic (religion, ethnicity, country of origin, country of residence). 
 """
 
-# Function to generate a lesson plan, for a given (topic, culture, prompting strategy).
+# Function to generate a lesson plan from LLM, for a given (topic, culture, prompting strategy).
 def generate_lesson(topic, culture, strategy):
     # You can change the overall prompt here which will be send to LLM API.
     prompt = f"""Generate a complete 2nd-grade math lesson on '{topic}' with a culturally relevant context for {culture} culture, 
@@ -170,8 +170,14 @@ def generate_lesson(topic, culture, strategy):
                     Make the class appropriate for 2nd grade.
                 """
 
+    # For each prompting strategy, we might also append additional instructions to LLM after the overall prompt. 
+    
+    # For 0-shot, we send the prompt as it is
     if strategy == "0-shot":
         full_prompt = prompt
+        
+    # For few-shot with example, we attach the culture_knowledge_base + example course plans for the LLM to follow. 
+    # You can edit the examples / instructions for how the LLM should follow the example below.
     elif strategy == "few-shot with example":
         full_prompt = f"""{culture_knowledge_base}
         Using the example lessons below, {prompt}\n
@@ -180,6 +186,9 @@ def generate_lesson(topic, culture, strategy):
         example 3: {example_lesson_3}. 
         example 4: {example_lesson_4}. 
         These lessons focus on problem-solving with multiple-choice answers to engage students while connecting math concepts to cultural and historical themes."""
+
+    # For few-shot with culture knowledge prompting strategy, give it the general definition of cultural knowledge (i.e. culture_knowledge_base)
+    # Plus individual cutural knowledge for eac culture
     elif strategy == "few-shot with culture knowledge":
         cultural_knowledge = {
             "Chinese": "With knowledge of Chinese culture, like Lunar New Year, dragons, and traditional foods like dumplings...",
@@ -187,6 +196,7 @@ def generate_lesson(topic, culture, strategy):
         }
         full_prompt = f"{culture_knowledge_base}{cultural_knowledge[culture]} {prompt}"
 
+    # Actually send the promot to chatgpt and get response back
     response = openai.ChatCompletion.create(
         model="gpt-4", 
         messages=[{"role": "user", "content": full_prompt}],
